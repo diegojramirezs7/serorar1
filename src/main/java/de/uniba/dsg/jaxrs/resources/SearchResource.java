@@ -29,21 +29,25 @@ public class SearchResource implements SearchApi {
 		if (artistName == null) {
 			throw new ClientRequestException(new ErrorMessage("Required query parameter is missing: artist"));
 		}
-		
+		//calls the api object built in customSpotifyApi and on that performs searchArtist() to get request
 		SearchArtistsRequest artistRequest = CustomSpotifyApi.getInstance().searchArtists(artistName).limit(1).build();
 
 		try {
 			// get search results
+			//from executed request, result will be of type paging
 			Paging<Artist> artistSearchResult = artistRequest.execute();
+			//on result object of type paging get entries
 			Artist[] artists = artistSearchResult.getItems();
 
 			// no artist found
 			if (artists != null && artists.length == 0) {
 				throw new ResourceNotFoundException(new ErrorMessage(String.format("No matching artist found for query: %s", artistName)));
 			}
-
+			
+			//just get the first one (should only be one anyway as limit was 1 in the request)
 			Artist artist = artists[0];
 			Interpret result = new Interpret();
+			//build interpret object set properties to props of returned artist and return it
 			result.setId(artist.getId());
 			result.setName(artist.getName());
 			result.setPopularity(artist.getPopularity());
