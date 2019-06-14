@@ -8,6 +8,7 @@ import javax.ws.rs.core.Application;
 
 import de.uniba.dsg.jaxrs.resources.AlbumResource;
 import de.uniba.dsg.jaxrs.resources.ArtistResource;
+import de.uniba.dsg.jaxrs.resources.PlaylistResource;
 import de.uniba.dsg.jaxrs.resources.SearchResource;
 
 @ApplicationPath("/")
@@ -26,6 +27,7 @@ public class MusicApi extends Application {
         resources.add(SearchResource.class);
         resources.add(ArtistResource.class);
         resources.add(AlbumResource.class);
+        resources.add(PlaylistResource.class);
         return resources;
     }
 }

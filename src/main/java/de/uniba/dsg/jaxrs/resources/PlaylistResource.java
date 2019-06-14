@@ -50,7 +50,7 @@ public class PlaylistResource implements PlaylistApi{
 				songs.add(song);
 			}
 		}
-		return null;
+		return Response.status(201).entity(songs).build();
 	}
 
 }
